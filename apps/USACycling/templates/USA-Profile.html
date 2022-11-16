@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <title>USACycling Profile</title>
+
+</head>
+<body>
+  <div id="app">
+    <v-app>
+      <v-main>
+            <v-row class="ma-2">
+              <v-col cols="12" sm="6">
+                <v-card :loading="loading" :disable="loading">
+                <v-card-title>USA Cycling Profile</v-card-title>
+                  <v-card-text>
+                    <v-form
+    ref="form"
+    v-model="valid"
+    lazy-validation
+  >
+
+
+    <v-text-field
+      v-model="email"
+      :rules="emailRules"
+      label="E-mail"
+      required
+    ></v-text-field>
+
+    <v-text-field
+      v-model="password"
+      :rules="nameRules"
+      label="Password"
+      type="password"
+      required
+    ></v-text-field>
+
+
+
+    <v-btn
+      :disabled="!valid"
+      color="success"
+      class="mr-4"
+      @click="validate"
+      small
+      :loading="loading"
+    >
+      Sign In & Get Profile
+    </v-btn>
+
+
+  </v-form>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <v-card >
+                <v-card-title>Profile</v-card-title>
+                    <v-card-text>
+                       <center v-if="loading"> <v-progress-circular
+      :size="25"
+      color="primary"
+      indeterminate
+    ></v-progress-circular></center>
+                        <div  id="my-div"></div>
+                    </v-card-text>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-continer>
+      </v-main>
+    </v-app>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.css">
+</link>
+
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.js">
+
+</script>
+
+  <script type="text/javascript"
+        src="/site.com/js/libs/codemirror/mode/javascript/javascript.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+        delimiters: ['${', '}'],
+      vuetify: new Vuetify(),
+      data: () => ({
+      loading: false,
+      valid: true,
+      password: 'mKQCA8Bz@r44kEg',
+      nameRules: [
+        v => !!v || 'Name is required'
+      ],
+      email: 'dev.sakkaravarthi@gmail.com',
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+      ],
+      profile : "asd",
+      select: null,
+      items: [
+        'Item 1',
+        'Item 2',
+        'Item 3',
+        'Item 4',
+      ],
+      checkbox: false,
+    }),
+
+    methods: {
+      validate () {
+        if(this.$refs.form.validate()){
+        this.loading = true
+        axios.post('/utility/USACycling/api/profile', {user_id: this.email, user_password:  this.password})
+        .then(data => {
+                this.loading = false
+                this.profile = data.data
+                    CodeMirror(document.querySelector('#my-div'), {
+                  lineNumbers: true,
+                  tabSize: 2,
+                      matchBrackets: true,
+                    mode: "javascript",
+                  value: JSON.stringify(this.profile,  null, ' ')
+                });
+         })
+         .catch(err => {
+                this.loading = false
+})
+        }
+
+      },
+      reset () {
+        this.$refs.form.reset()
+      },
+      resetValidation () {
+        this.$refs.form.resetValidation()
+      },
+    },
+    })
+  </script>
+</body>
+</html>
