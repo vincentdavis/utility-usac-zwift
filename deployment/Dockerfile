@@ -54,7 +54,7 @@ RUN pip install -r requirement.txt
 
 RUN pip install uwsgi
 
-RUN apt-get install cron -y
+# RUN apt-get install cron -y
 
 RUN git config --global credential.helper store
 
