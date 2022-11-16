@@ -9,7 +9,7 @@ sudo cp -rf ../default.conf  /etc/nginx/sites-available/default
 #cp ../.env /home/jenkins/zp-results/zp_result/
 #cp ../ca-certificate.crt /home/jenkins/zp-results/
 pip install uwsgi
-python manage.py collectstatic
+#python manage.py collectstatic
 python manage.py migrate
 
 # Restart nginx
