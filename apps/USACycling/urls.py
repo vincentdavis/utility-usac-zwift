@@ -1,11 +1,14 @@
 from django.urls import path
 
-from apps.USACycling.api.views import USACyclingProfileAPI
-from apps.USACycling.views import USACycingProfileView
+from apps.USACycling.api.views import USACyclingProfileAPI, AssociationsAPI, ZwiftProfileAPI
+from apps.USACycling.views import USACycingProfileView, ZwiftProfileView
 
 urlpatterns= [
-    path('profile', USACycingProfileView.as_view()),
+    path('USACycling/profile', USACycingProfileView.as_view()),
+    path('Zwift/profile', ZwiftProfileView.as_view()),
     # API
-    path('api/profile', USACyclingProfileAPI.as_view())
+    path('USACycling/api/profile', USACyclingProfileAPI.as_view()),
+    path('USACycling/api/associations', AssociationsAPI.as_view()),
+    path('zwift/api/profile', ZwiftProfileAPI.as_view())
 
 ]
