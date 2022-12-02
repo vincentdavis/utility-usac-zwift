@@ -12,7 +12,7 @@ def main(doamin):
 
     format = {
 
-        "Public Key": '{}'.format(':'.join(pub[i:i + 2] for i in range(0, len(pub), 2))),
+        "Public Key": '{}'.format(' '.join(pub[i:i + 2] for i in range(0, len(pub), 2))),
         "Public Key Bits": '{}'.format(x509.get_pubkey().bits()),
 
     }
@@ -20,4 +20,4 @@ def main(doamin):
     return json.dumps(format)
 
 if __name__ == '__main__':
-    main('google.com')
+    main('zwiftapi.weracehere.org')
