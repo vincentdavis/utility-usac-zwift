@@ -6,13 +6,16 @@ from googleapiclient.errors import HttpError
 
 
 class GSheetAPI():
+    """
+    Follow: SetUp_GoogleSheetAPI.md to setup google api
+    """
     def __init__(self) -> None:
         self.creds = None
 
         self.scopes = ["https://www.googleapis.com/auth/drive", "https://www.googleapis.com/auth/drive.file",
                   "https://www.googleapis.com/auth/spreadsheets"]
-        if os.path.exists('get-permission-2d1be-4fbe8b484e2c.json'):
-            self.creds = service_account.Credentials.from_service_account_file('get-permission-2d1be-4fbe8b484e2c.json',
+        if os.path.exists('client_secret.json'):
+            self.creds = service_account.Credentials.from_service_account_file('client_secret.json',
                                                                           scopes=self.scopes)
         # Sheet ID
         self.SPREADSHEET_ID = '1EbC7zxPxZ8c46lOpMHc5omb5Biu4XAi7aXSN59xmJl0'
